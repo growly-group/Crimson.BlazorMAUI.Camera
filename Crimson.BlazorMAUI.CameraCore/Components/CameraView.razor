@@ -1,0 +1,36 @@
+﻿@namespace Crimson.BlazorMAUI.Camera
+@inject IJSRuntime jsRuntime
+
+@code {
+    [Parameter]
+    public string? Id { get; set; }
+
+    [Parameter]
+    public string? Class { get; set; }
+
+    [Parameter]
+    public string? Style { get; set; }
+
+    [Parameter]
+    public Func<string, Task> OnEventAsync { get; set; } = (_) => Task.CompletedTask;
+
+    [Parameter]
+    public Action<string> OnEvent { get; set; } = (_) => { };
+
+    protected override async Task OnInitializedAsync()
+    {
+        var jsCameraHandler = await jsRuntime.InvokeAsync("globalThis.createCameraHandler", Id, OnEventAsync);
+        await Task.Delay(1000);
+
+    }
+}
+
+<div 
+    id=@Id
+    class=@Class
+    style=@Style
+>
+    <video>
+
+    </video>
+</div>
