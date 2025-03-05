@@ -4,17 +4,20 @@ import { takeVideoScreenshot } from "./methods/takeVideoScreenshot.js";
 class CameraHandler {
     _containerId;
     _eventHandler;
+    _eventHandlerAsync;
     _video;
 
-    constructor(containerId, eventHandler) {
+    constructor(containerId, eventHandler, eventHandlerAsync) {
         this._containerId = containerId;
         this._eventHandler = eventHandler;
+        this._eventHandlerAsync = eventHandlerAsync;
     }
 
     async startPreview() {
         const results = await previewCamera(this._containerId);
         this._video = results.video;
-        this._eventHandler("OnStartPreview");
+        this._eventHandler("OnStartPreview", this._containerId);
+        this._eventHandlerAsync("OnStartPreviewAsync", this._containerId);
     }
 
     async pausePreview() {

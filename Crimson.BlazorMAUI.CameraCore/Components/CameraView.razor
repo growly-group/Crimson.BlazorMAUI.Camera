@@ -12,16 +12,20 @@
     public string? Style { get; set; }
 
     [Parameter]
-    public Func<string, Task> OnEventAsync { get; set; } = (_) => Task.CompletedTask;
+    public Func<string, object, Task>? OnEventAsync { get; set; }
 
     [Parameter]
-    public Action<string> OnEvent { get; set; } = (_) => { };
+    public Action<string, object>? OnEvent { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
-        var jsCameraHandler = await jsRuntime.InvokeAsync("globalThis.createCameraHandler", Id, OnEventAsync);
+        var jsCameraHandler = await jsRuntime.InvokeAsync<object>(
+            "globalThis.createCameraHandler", 
+            Id, 
+            new Func<string, object, Task>(OnEventAsync ?? ((_, __) => Task.CompletedTask)),
+            new Action<string, object>(OnEvent ?? ((_, __) => {}))
+        );
         await Task.Delay(1000);
-
     }
 }
 
