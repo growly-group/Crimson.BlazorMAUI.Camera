@@ -1,6 +1,7 @@
 import { previewCamera } from "./methods/previewCamera.js";
 import { takeVideoScreenshot } from "./methods/takeVideoScreenshot.js";
 
+globalThis.cameraHandlers ??= {};
 class CameraHandler {
     _containerId;
     _eventHandler;
@@ -34,4 +35,6 @@ class CameraHandler {
     }
 }
 
-globalThis.createCameraHandler = (containerId, eventHandler) => new CameraHandler(containerId, eventHandler);
+globalThis.createCameraHandler = (containerId, eventHandler) => {
+    globalThis.cameraHandlers[containerId] = new CameraHandler(containerId, eventHandler); 
+};

@@ -3,7 +3,14 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35327.3
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Crimson.BlazorMAUI.CameraCore", "Crimson.BlazorMAUI.CameraCore\Crimson.BlazorMAUI.CameraCore.csproj", "{D29053F7-5AB6-463B-8CF6-EF732485F35F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Crimson.BlazorMAUI.CameraCore", "Crimson.BlazorMAUI.CameraCore\Crimson.BlazorMAUI.CameraCore.csproj", "{D29053F7-5AB6-463B-8CF6-EF732485F35F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{E6C5E438-379E-48D5-A888-76102204CADF}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+		LICENSE = LICENSE
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

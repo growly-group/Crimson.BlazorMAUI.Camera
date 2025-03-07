@@ -19,12 +19,14 @@
 
     protected override async Task OnInitializedAsync()
     {
-        var jsCameraHandler = await jsRuntime.InvokeAsync<object>(
+        // Create camera handler interop object globally
+        await jsRuntime.InvokeVoidAsync(
             "globalThis.createCameraHandler", 
             Id, 
             new Func<string, object, Task>(OnEventAsync ?? ((_, __) => Task.CompletedTask)),
             new Action<string, object>(OnEvent ?? ((_, __) => {}))
         );
+
         await Task.Delay(1000);
     }
 }
