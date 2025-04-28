@@ -11,15 +11,8 @@
     [Parameter]
     public string? Style { get; set; }
 
-    [Parameter]
-    public Func<string, object, Task>? OnEventAsync { get; set; }
-
-    [Parameter]
-    public Action<string, object>? OnEvent { get; set; }
-
     protected override async Task OnInitializedAsync()
     {
-        // Create camera handler interop object globally
         await jsRuntime.InvokeVoidAsync(
             "globalThis.createCameraHandler", 
             Id, 
