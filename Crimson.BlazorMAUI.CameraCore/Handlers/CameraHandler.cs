@@ -1,5 +1,5 @@
 ﻿using Microsoft.JSInterop;
-
+using Xamarin.Essentials;
 namespace Crimson.BlazorMAUI.CameraCore.Handlers
 {
     public class CameraHandler
@@ -123,6 +123,12 @@ namespace Crimson.BlazorMAUI.CameraCore.Handlers
             {
                 await OnEvent.Invoke("OnStopPreview", null);
             }
+        }
+        public async Task<bool> RequestPermissions()
+        {
+            // Add bool allowed to check in other metods
+            var cameraStatus = await Permissions.RequestAsync<Permissions.Camera>();
+            return cameraStatus == PermissionStatus.Granted;
         }
     }
 

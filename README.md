@@ -38,13 +38,17 @@ The package comes with separated tools and visual components that can be used to
 that can be used in the [current version](#soon) of the library:
 
 - **Visual Components**
-	- \<CameraView> 
-	- \<AudioView>
-	- \<ScreenView>
-	- \<MediaController>
+	- CameraRecorder
 - **Tools**
-	- HeadlessCamera
-	- HeadlessAudio
-	- HeadlessScreen
 	- CameraHandler
-	- AudioHandler
+
+# Todo and future
+
+These features are planned to be released in future versions:
+
+- [ ] Recording videos with `CameraRecorder` and exporting to common codecs;
+- [ ] Recording audios with `AudioRecorder` and exporting to common audio types;
+- [ ] Record user screen with `ScreenRecorder` and exporting to common image types or video codecs;
+
+
+
