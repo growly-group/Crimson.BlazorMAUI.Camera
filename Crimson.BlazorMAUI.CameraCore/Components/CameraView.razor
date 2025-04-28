@@ -11,24 +11,14 @@
     [Parameter]
     public string? Style { get; set; }
 
-    protected override async Task OnInitializedAsync()
-    {
-        await jsRuntime.InvokeVoidAsync(
-            "globalThis.createCameraHandler", 
-            Id, 
-            new Func<string, object, Task>(OnEventAsync ?? ((_, __) => Task.CompletedTask)),
-            new Action<string, object>(OnEvent ?? ((_, __) => {}))
-        );
-
-        await Task.Delay(1000);
-    }
+    [Parameter]
+    public bool Headless { get; set; }
 }
 
 <div 
     id=@Id
     class=@Class
-    style=@Style
->
+     style=@(Headless ? "display: none; \n" + Style : Style)>
     <video>
 
     </video>
