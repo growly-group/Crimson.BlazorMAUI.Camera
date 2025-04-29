@@ -9,11 +9,13 @@ namespace Crimson.BlazorMAUI.CameraCore.Handlers
         public Func<string, object?, Task>? OnEvent { get; set; }
 
         private readonly IJSRuntime _jsRuntime;
+        private bool _permissionsGranted;
 
         public CameraHandler(string? cameraViewId, IJSRuntime jsRuntime)
         {
             CameraViewId = cameraViewId;
             _jsRuntime = jsRuntime;
+            _permissionsGranted = false;
             Snapshots = [];
         }
 
@@ -52,6 +54,11 @@ namespace Crimson.BlazorMAUI.CameraCore.Handlers
 
         public async Task<CameraSnapshot?> GetLastPicture()
         {
+            if (!_permissionsGranted)
+            {
+                throw new Exception("Camera permissions not granted.");
+            }
+
             var lastPicture = Snapshots?.LastOrDefault();
 
             if (OnEvent != null)
@@ -64,6 +71,11 @@ namespace Crimson.BlazorMAUI.CameraCore.Handlers
 
         public async Task ClearPictures()
         {
+            if (!_permissionsGranted)
+            {
+                throw new Exception("Camera permissions not granted.");
+            }
+
             Snapshots?.Clear();
             if (OnEvent != null)
             {
@@ -73,6 +85,11 @@ namespace Crimson.BlazorMAUI.CameraCore.Handlers
 
         public async Task Preview(string facingMode = "user")
         {
+            if (!_permissionsGranted)
+            {
+                throw new Exception("Camera permissions not granted.");
+            }
+
             var actionResult = await _jsRuntime.InvokeAsync<string>($@"
                     const cameraView = document.getElementById(""{CameraViewId}"");
                     const video = cameraView?.getElementsByTagName(""video"")[0];
@@ -99,6 +116,11 @@ namespace Crimson.BlazorMAUI.CameraCore.Handlers
 
         public async Task Stop()
         {
+            if (!_permissionsGranted)
+            {
+                throw new Exception("Camera permissions not granted.");
+            }
+
             var actionResult = await _jsRuntime.InvokeAsync<string>($@"
                     const cameraView = document.getElementById(""{CameraViewId}"");
                     const video = cameraView?.getElementsByTagName(""video"")[0];
@@ -126,9 +148,9 @@ namespace Crimson.BlazorMAUI.CameraCore.Handlers
         }
         public async Task<bool> RequestPermissions()
         {
-            // Add bool allowed to check in other metods
             var cameraStatus = await Permissions.RequestAsync<Permissions.Camera>();
-            return cameraStatus == PermissionStatus.Granted;
+            _permissionsGranted = cameraStatus == PermissionStatus.Granted;
+            return _permissionsGranted;
         }
     }
 
