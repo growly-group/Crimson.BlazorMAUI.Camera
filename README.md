@@ -1,9 +1,22 @@
-﻿# 📷 Crimson Blazor/Hybrid MAUI Camera
+﻿# 📷 Crimson Hybrid MAUI Camera
  
-Crimson BHMC is a library focused on providing easy-to-use tools to properly integrate camera features in *almost* any Blazor and Blazor Hybrid (MAUI) application.
-The library comes with the main component to visually preview a camera, take pictures, record audio and videos and a set of toools to
-externally work on it. It is designed to work without any additional setup - taking care of platform-specific permissions and providing
-ways to make beautiful workarounds in case anything happens.
+Crimson Hybrid MAUI camera is a tool focused in providing video and audio functionalities to MAUI webbrowser-based applications.
+
+# 🎯 Features
+
+- **JavaScript methods**
+    - **createCameraHandler(CameraOptions)**
+    - **CameraHandler**
+        - **takePicture(mimeType?)** byte[]
+        - **startRecording(id?)** string
+        - **stopRecording(id)** void
+
+- take picture can be configured to take a specific predefined square coordinate to take a cropped picture 
+- maybe start recording can target a specific stream or create a Video class instance to allow multiple targets with multi threading
+- start video preview can actually start the real video preview in the component, stop video preview will also stop all recordings/streams
+- start video recording needs to be different from start audio recording? Maybe it can be two different components and I can pass a MicrophoneHandler
+- I can have VideoHandler and AudioHandler as base classes so I can create ScreenHandler, CameraHandler, DeviceAudioHandler and MicrophoneHandler, it can also be extended to ExternalVideoSourceHandler and ExternalAudioSourceHandler to explore streaming capabilities
+
 
 # Installation
 
